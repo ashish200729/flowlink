@@ -1,16 +1,12 @@
-import prisma from "@/lib/db";
-import { Card, CardContent } from "@/components/ui/card";
+import { caller } from "@/trcp/server"
 
-const Page = async () => {
 
-  const users = await prisma.user.findMany();
+const Page = async () =>  {
+
+ const users = await caller.getUsers();
+  
   return <div className="flex items-center justify-center h-screen">
-    <Card>
-      <CardContent>
-        
-      </CardContent>
-    </Card>
-        
+    <pre>{JSON.stringify(users, null, 2)}</pre>
   </div>
   
 }
