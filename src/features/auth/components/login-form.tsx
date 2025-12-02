@@ -84,14 +84,14 @@ export function LoginForm() {
                     variant={"outline"}
                     type="button"
                     disabled={isPending}
-                  >
+                  ><Image src="/logos/github.svg" alt="github" width={20} height={20} />
                     Continue With Github
                   </Button>
                   <Button
                     variant={"outline"}
                     type="button"
                     disabled={isPending}
-                  >
+                  ><Image src="/logos/google.svg" alt="google" width={20} height={20} />
                     Continue With Google
                   </Button>
                 </div>

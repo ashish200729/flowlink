@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -33,7 +34,7 @@ const RegisterSchema = z
     email: z.string().email("Please enter a valid email"),
     password: z.string().min(1, "Password must be at least 6 characters long"),
     confirmPassword: z
-      .string()   
+      .string()
       .min(1, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -51,7 +52,7 @@ export function RegisterForm() {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",  
+      confirmPassword: "",
     },
   });
 
@@ -88,10 +89,12 @@ export function RegisterForm() {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
-                  <Button variant="outline" type="button" disabled={isPending}>
+                  <Button variant="outline" type="button" disabled={isPending} >
+                    <Image src="/logos/github.svg" alt="github" width={20} height={20} />
                     Continue With Github
                   </Button>
                   <Button variant="outline" type="button" disabled={isPending}>
+                    <Image src="/logos/google.svg" alt="google" width={20} height={20} />
                     Continue With Google
                   </Button>
                 </div>
