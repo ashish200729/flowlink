@@ -1,14 +1,14 @@
-import { caller } from "@/trcp/server"
+import { requireAuth } from "@/lib/auth-utils";
+import { caller } from "@/trcp/server";
 
+const Page = async () => {
 
-const Page = async () =>  {
+  const data = await caller.getUsers()
 
- const users = await caller.getUsers();
-  
-  return <div className="flex items-center justify-center h-screen">
-    <pre>{JSON.stringify(users, null, 2)}</pre>
+  return <div className="min-h-screen min-w-screen flex items-center justify-center">
+    protected server component
+    {JSON.stringify(data)}
   </div>
-  
 }
 
 export default Page;
