@@ -11,6 +11,11 @@ export const execute = inngest.createFunction(
         const result = await generateText({
             model: anthropic('claude-sonnet-4-5'),
             prompt: "who are you?.",
+            experimental_telemetry: {
+                recordInputs: true,
+                recordOutputs: true,
+                isEnabled: true,
+            }
         });
         
         return { 
