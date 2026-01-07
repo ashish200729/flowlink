@@ -9,7 +9,8 @@ import {
     CreditCardIcon,
     LogOutIcon,
 } from "lucide-react";
-
+// At the top, add useState import
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -30,9 +31,6 @@ import {
     SidebarGroup,
     SidebarGroupContent,
 } from "@/components/ui/sidebar";
-import { title } from "process";
-import { url } from "inspector";
-import { group } from "console";
 import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 
@@ -63,6 +61,7 @@ export const AppSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
     const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
+    const [isBillingLoading, setIsBillingLoading] = useState(false);
      
     return (
         <Sidebar collapsible="icon">
@@ -112,8 +111,18 @@ export const AppSidebar = () => {
                 )}
                 </SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton className="gap-x-4 h-10 px-4" tooltip="Billing Portal" onClick={() => {
-                        authClient.customer.portal();
+                    <SidebarMenuButton className="gap-x-4 h-10 px-4" tooltip="Billing Portal" disabled={isBillingLoading} onClick={() => {
+                        setIsBillingLoading(true);
+                        authClient.customer.portal({
+                            fetchOptions: {
+                                onSuccess: () => {
+                                    setIsBillingLoading(false);
+                                },
+                                onError: () => {
+                                    setIsBillingLoading(false);
+                                },
+                            },
+                        });
                     }}>
                         <CreditCardIcon className="size-4" />
                         <span className="truncate">Billing Portal</span>
